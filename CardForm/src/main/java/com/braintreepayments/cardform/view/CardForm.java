@@ -20,6 +20,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,6 +71,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     @IntDef({FIELD_DISABLED, FIELD_OPTIONAL, FIELD_REQUIRED})
     @interface FieldStatus {}
 
+    // TODO: Add an enum for cardVaultSettings.
+
     private List<ErrorEditText> mVisibleEditTexts;
 
     private ImageView mCardNumberIcon;
@@ -84,12 +87,16 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
+    private CheckBox mSaveCardCheckbox;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
     private boolean mCvvRequired;
     private int mCardholderNameStatus = FIELD_DISABLED;
     private boolean mPostalCodeRequired;
+    //private boolean mShowSaveCardCheckbox;
+    //private boolean mDefaultValueForVaulting;
+    private int mCardVaultingSetting;
     private boolean mMobileNumberRequired;
     private String mActionLabel;
 
@@ -139,6 +146,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
+
+        // TODO: Show the check box field depending on the cardVaultEnumSetting.
+        mSaveCardCheckbox = findViewById(R.id.bt_card_form_save_card_checkbox);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -245,6 +255,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     *
+     */
+    public CardForm cardVaultingSetting(int vaultSetting) {
+        mCardVaultingSetting = vaultSetting;
+        return this;
+    }
+
+    /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
      * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(AppCompatActivity)} is not called,
      * the form will not be visible.
@@ -284,6 +302,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
+        // Only show the checkbox is the 'customer chooses' vault setting is chosen.
+        setViewVisibility(mSaveCardCheckbox, mCardVaultingSetting == 2);
 
         TextInputEditText editText;
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
@@ -725,6 +745,18 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public String getMobileNumber() {
         return mMobileNumber.getMobileNumber();
+    }
+
+    /**
+     * @return a boolean value if card should be vaulted or not
+     */
+    public boolean shouldSaveCard() {
+        if (mCardVaultingSetting == 2) {
+            return mSaveCardCheckbox.isChecked();
+        } else if (mCardVaultingSetting == 1) {
+            return true;
+        }
+        return false;
     }
 
     @Override
