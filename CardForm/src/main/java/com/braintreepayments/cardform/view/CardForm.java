@@ -87,7 +87,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
-    private CheckBox mSaveCardCheckbox;
+    private CheckBox mSaveCardCheckBox;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -96,8 +96,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private boolean mPostalCodeRequired;
     private boolean mMobileNumberRequired;
     private String mActionLabel;
-    private boolean mSaveCardCheckboxVisible;
-    private boolean mSaveCardCheckboxPrechecked;
+    private boolean mSaveCardCheckBoxVisible;
+    private boolean mSaveCardCheckBoxChecked;
 
     private boolean mValid = false;
 
@@ -145,7 +145,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
-        mSaveCardCheckbox = findViewById(R.id.bt_card_form_save_card_checkbox);
+        mSaveCardCheckBox = findViewById(R.id.bt_card_form_save_card_checkbox);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -252,20 +252,20 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param isVisible {@code true} to show the Save Card checkbox, {@code false} to hide the Save Card checkbox. Defaults to {@code false}.
+     * @param visible {@code true} to show the Save Card CheckBox, {@code false} to hide the Save Card CheckBox. Defaults to {@code false}.
      * @return {@link CardForm} for method chaining
      */
-    public CardForm saveCardCheckboxVisible(boolean isVisible) {
-        mSaveCardCheckboxVisible = isVisible;
+    public CardForm saveCardCheckBoxVisible(boolean visible) {
+        mSaveCardCheckBoxVisible = visible;
         return this;
     }
 
     /**
-     * @param isPrechecked {@code true} to default the checkbox to checked upon app launch {@code false} to default the checkbox to unchecked. Defaults to {@code false}.
+     * @param checked The default value for the Save Card CheckBox.
      * @return {@link CardForm} for method chaining
      */
-    public CardForm saveCardCheckboxPrechecked(boolean isPrechecked) {
-        mSaveCardCheckboxPrechecked = isPrechecked;
+    public CardForm saveCardCheckBoxChecked(boolean checked) {
+        mSaveCardCheckBoxChecked = checked;
         return this;
     }
 
@@ -310,7 +310,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
-        setViewVisibility(mSaveCardCheckbox, mSaveCardCheckboxVisible);
+        setViewVisibility(mSaveCardCheckBox, mSaveCardCheckBoxVisible);
 
         TextInputEditText editText;
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
@@ -325,6 +325,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 editText.setOnEditorActionListener(null);
             }
         }
+
+        mSaveCardCheckBox.setChecked(mSaveCardCheckBoxChecked);
 
         setVisibility(VISIBLE);
     }

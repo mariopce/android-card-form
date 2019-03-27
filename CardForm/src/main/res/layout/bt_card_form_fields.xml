@@ -118,11 +118,6 @@
 
     </LinearLayout>
 
-    <CheckBox android:id="@+id/bt_card_form_save_card_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Card"/>
-
     <LinearLayout
         style="@style/bt_field_container"
         android:weightSum="5">
@@ -174,5 +169,20 @@
         android:paddingLeft="@dimen/bt_mobile_number_explanation_padding"
         android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
         android:paddingEnd="0dp"/>
+
+    <LinearLayout
+        style="@style/bt_field_container"
+        android:paddingRight="0dp"
+        android:paddingLeft="@dimen/bt_mobile_number_explanation_padding"
+        android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
+        android:paddingEnd="0dp">
+
+        <CheckBox android:id="@+id/bt_card_form_save_card_checkbox"
+            android:layout_marginLeft="-7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_save_card_checkbox_name" />
+
+    </LinearLayout>
 
 </merge>
