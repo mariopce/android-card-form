@@ -39,6 +39,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 .cvvRequired(true)
                 .postalCodeRequired(true)
                 .mobileNumberRequired(true)
+                .saveCardCheckboxVisible(true)
                 .cardholderName(CardForm.FIELD_REQUIRED)
                 .mobileNumberExplanation("Make sure SMS is enabled for this mobile number")
                 .actionLabel(getString(R.string.purchase))
@@ -81,4 +82,5 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
         return false;
     }
+
 }

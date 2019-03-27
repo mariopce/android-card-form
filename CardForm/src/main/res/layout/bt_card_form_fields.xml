@@ -121,8 +121,7 @@
     <CheckBox android:id="@+id/bt_card_form_save_card_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Card"
-        android:onClick="onSaveCardToggleSwitched"/>
+        android:text="Save Card"/>
 
     <LinearLayout
         style="@style/bt_field_container"

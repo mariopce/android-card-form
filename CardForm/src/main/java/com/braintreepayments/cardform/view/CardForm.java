@@ -94,11 +94,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private boolean mCvvRequired;
     private int mCardholderNameStatus = FIELD_DISABLED;
     private boolean mPostalCodeRequired;
-    //private boolean mShowSaveCardCheckbox;
-    //private boolean mDefaultValueForVaulting;
-    private int mCardVaultingSetting;
     private boolean mMobileNumberRequired;
     private String mActionLabel;
+    private boolean mSaveCardCheckboxVisible;
+    private boolean mSaveCardCheckboxPrechecked;
 
     private boolean mValid = false;
 
@@ -146,8 +145,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
-
-        // TODO: Show the check box field depending on the cardVaultEnumSetting.
         mSaveCardCheckbox = findViewById(R.id.bt_card_form_save_card_checkbox);
 
         mVisibleEditTexts = new ArrayList<>();
@@ -255,12 +252,23 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     *
+     * @param isVisible {@code true} to show the Save Card checkbox, {@code false} to hide the Save Card checkbox. Defaults to {@code false}.
+     * @return {@link CardForm} for method chaining
      */
-    public CardForm cardVaultingSetting(int vaultSetting) {
-        mCardVaultingSetting = vaultSetting;
+    public CardForm saveCardCheckboxVisible(boolean isVisible) {
+        mSaveCardCheckboxVisible = isVisible;
         return this;
     }
+
+    /**
+     * @param isPrechecked {@code true} to default the checkbox to checked upon app launch {@code false} to default the checkbox to unchecked. Defaults to {@code false}.
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm saveCardCheckboxPrechecked(boolean isPrechecked) {
+        mSaveCardCheckboxPrechecked = isPrechecked;
+        return this;
+    }
+
 
     /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
@@ -302,8 +310,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
-        // Only show the checkbox is the 'customer chooses' vault setting is chosen.
-        setViewVisibility(mSaveCardCheckbox, mCardVaultingSetting == 2);
+        setViewVisibility(mSaveCardCheckbox, mSaveCardCheckboxVisible);
 
         TextInputEditText editText;
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
@@ -745,18 +752,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public String getMobileNumber() {
         return mMobileNumber.getMobileNumber();
-    }
-
-    /**
-     * @return a boolean value if card should be vaulted or not
-     */
-    public boolean shouldSaveCard() {
-        if (mCardVaultingSetting == 2) {
-            return mSaveCardCheckbox.isChecked();
-        } else if (mCardVaultingSetting == 1) {
-            return true;
-        }
-        return false;
     }
 
     @Override
