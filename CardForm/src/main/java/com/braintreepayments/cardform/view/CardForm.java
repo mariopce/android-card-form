@@ -71,8 +71,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     @IntDef({FIELD_DISABLED, FIELD_OPTIONAL, FIELD_REQUIRED})
     @interface FieldStatus {}
 
-    // TODO: Add an enum for cardVaultSettings.
-
     private List<ErrorEditText> mVisibleEditTexts;
 
     private ImageView mCardNumberIcon;
@@ -755,6 +753,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     public String getMobileNumber() {
         return mMobileNumber.getMobileNumber();
     }
+
+    /**
+     * @return the value for whether or not the Save Card CheckBox is checked
+     */
+    public boolean getSaveCardCheckBoxValue() {
+        return mSaveCardCheckBox.isChecked();
+    }
+
 
     @Override
     public void onCardTypeChanged(CardType cardType) {

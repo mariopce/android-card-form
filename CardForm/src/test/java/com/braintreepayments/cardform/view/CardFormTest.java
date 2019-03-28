@@ -1214,6 +1214,35 @@ public class CardFormTest {
     }
 
     @Test
+    public void getSaveCardCheckBoxValue_returnsCheckBoxValue_whenSetTrue() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(true)
+                .setup(mActivity);
+
+        assertTrue(mCardForm.getSaveCardCheckBoxValue());
+    }
+
+    @Test
+    public void getSaveCardCheckBoxValue_returnsCheckBoxValue_whenSetFalse() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(false)
+                .setup(mActivity);
+
+        assertFalse(mCardForm.getSaveCardCheckBoxValue());
+    }
+
+    @Test
+    public void getSaveCardCheckBoxValue_returnsCheckBoxValue_whenToggled() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(false)
+                .setup(mActivity);
+
+        CheckBox saveCardCheckBox = (CheckBox) mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox);
+        saveCardCheckBox.setChecked(true);
+        assertTrue(mCardForm.getSaveCardCheckBoxValue());
+    }
+
+    @Test
     public void setCardNumberError_setsError() {
         mCardForm.cardRequired(true)
                 .expirationRequired(true)

@@ -181,7 +181,7 @@
             android:layout_marginLeft="-7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bt_save_card_checkbox_name" />
+            android:text="@string/bt_save_card_checkbox_name"/>
 
     </LinearLayout>
 
