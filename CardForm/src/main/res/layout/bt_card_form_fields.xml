@@ -177,7 +177,8 @@
         android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
         android:paddingEnd="0dp">
 
-        <CheckBox android:id="@+id/bt_card_form_save_card_checkbox"
+        <com.braintreepayments.cardform.view.InitialValueCheckBox
+            android:id="@+id/bt_card_form_save_card_checkbox"
             android:layout_marginLeft="-7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

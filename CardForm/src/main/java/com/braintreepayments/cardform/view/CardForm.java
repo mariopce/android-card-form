@@ -20,7 +20,6 @@ import android.view.View.OnFocusChangeListener;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,7 +84,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
-    private CheckBox mSaveCardCheckBox;
+    private InitialValueCheckBox mSaveCardCheckBox;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -324,7 +323,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             }
         }
 
-        mSaveCardCheckBox.setChecked(mSaveCardCheckBoxChecked);
+        mSaveCardCheckBox.setInitiallyChecked(mSaveCardCheckBoxChecked);
 
         setVisibility(VISIBLE);
     }
