@@ -16,6 +16,7 @@ android {
         warning 'MissingTranslation'
         warning 'GradleCompatible'
         textReport true
+        abortOnError false
         textOutput 'stdout'
     }
 }
